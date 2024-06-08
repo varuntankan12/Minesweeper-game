@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper | by Varun Tankan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="info.css">
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div class="main-container flex-center-column">
+        <h1>MineSweeper</h1>
+        <div class="game-area" id="game_area">
+            <div class="header" id="header">
+                <span class="mines" id="mines">000</span>
+                <div class="button" id="buttons">
+                    <button class="help" id="hint_btn"><img src="assets/hint.svg" alt="hint"></button>
+                    <button class="flag" id="flag_btn"><img src="assets/mine_hammer.svg" alt="flag"></button>
+                    <button class="replay-button hidden" id="replay">Replay</button>
+                </div>
+                <div class="time">
+                    <span class="hrs" id="hrs">00</span>:<span class="min" id="min">00</span>:<span class="sec" id="sec">00</span>
+                </div>
+            </div>
+            <div class="cell-container" id="cell_container">
+                <span class="cell opened"><img src="assets/flag.png" alt="."></span>
+            </div>
+            <div class="information hidden" id="info_container">
+                <div class="info-container" id="information_container">
+                    <span class="info total-mine-info ">Total Numbers of Mines present.</span>
+                    <span class="info time-info hidden">Time will continously running, so be quick.</span>
+                    <span class="info change-hammer-info hidden">Click here to change mining mode (Mining/Flag).</span>
+                    <span class="info hint-info hidden">click here for a hint (once in a minute).</span>
+                    <span class="info cell-info hidden">click on any cell to Start.</span>
+                    <div class="info how-to-play hidden">
+                        <div class="help-container">
+                            <p><img src="assets/mine.svg" alt=""></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                            <p>2</p>
+                            <p><img src="assets/mine.svg" alt=""></p>
+                            <p></p>
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <p class="how-to-play-text">The numbers shows that how many mines are connected to that cell
+                            around it.</p>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button id="prev">Prev</button>
+                    <button id="next">Next</button>
+                </div>
+            </div>
+            <div class="game-over hidden" id="game_over">
+                <p>!! Game Over !!</p>
+            </div>
+            <div class="game-win hidden" id="game_win">
+                <p>!! Congratulations !!</p>
+                <p>Your Time-<span id="your_time">00:45</span></p>
+                <p>Best Time-<span id="best_time">00:25</span></p>
+            </div>
+            <div class="start hidden" id="start">
+                <Button id="start">Start</Button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="info.js"></script>
+<script src="script.js"></script>
+
+</html>
