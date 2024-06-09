@@ -76,7 +76,7 @@ function startTimer(maxHours = 2) {
         minutes.textContent = m;
         seconds.textContent = s;
 
-        timeTaken = `${h > 0 ? h + ":" : ""}${m}:${s}`;
+        timeTaken = `${h}:${m}:${s}`;
         if (++timer > maxDuration) {
             clearInterval(intervalId);
         }
@@ -257,21 +257,45 @@ function changeMode() {
 }
 
 function showHint(grid) {
+    // check for 0 cells first
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[row].length; col++) {
             const cellId = `${row}_${col}`;
             const cell = document.getElementById(cellId);
 
-            if (grid[row][col] !== -1 && !cell.classList.contains("opened") && availableHint == true) {
+            if (grid[row][col] == 0 && !cell.classList.contains("opened") && availableHint == true) {
+                hintButton.classList.remove("hint-available");
                 availableHint = false;
                 setTimeout(() => {
                     availableHint = true;
+                    hintButton.classList.add("hint-available");
                 }, 60000);
                 cell.classList.add("hint");
                 return;
             }
         }
     }
+
+    // check for other available cells.
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[row].length; col++) {
+            const cellId = `${row}_${col}`;
+            const cell = document.getElementById(cellId);
+
+            if (grid[row][col] !== -1 && !cell.classList.contains("opened") && availableHint == true) {
+                hintButton.classList.remove("hint-available");
+                availableHint = false;
+                setTimeout(() => {
+                    availableHint = true;
+                    hintButton.classList.add("hint-available");
+                }, 60000);
+                cell.classList.add("hint");
+                return;
+            }
+        }
+    }
+
+
 }
 
 function checkGameCompleted(grid = question) {
@@ -295,28 +319,26 @@ function checkGameCompleted(grid = question) {
         replay.classList.remove("hidden");
         hintButton.classList.add("hidden");
         flagButton.classList.add("hidden");
-        let maxHours = localStorage.getItem("hour");
-        let maxMin = localStorage.getItem("minute");
-        let maxSec = localStorage.getItem("second");
-        if (h == "0") {
-            if (m == '0') {
-                if (s < maxSec || maxSec == null) {
-                    localStorage.setItem("second", s);
-                }
-            } else if (m < maxMin || maxMin == null) {
-                localStorage.setItem("minute", m);
-                localStorage.setItem("second", s);
-            }
-        } else if (h < maxHours || maxHours == null) {
-            localStorage.setItem("hour", h);
-            localStorage.setItem("minute", m);
-            localStorage.setItem("second", s);
-        }
-
-        playerTime.textContent = `${h > 0 ? h + ":" : ""}${m}:${s}`;
-        bestTime.textContent = `${maxHours ? maxHours + ":" : ""}${maxMin}:${maxSec}`;
-
+        storeGameTime();
     }
+}
+
+function storeGameTime() {
+    const newTimeInSeconds = convertToSeconds(timeTaken);
+    const storedTime = localStorage.getItem('bestTime');
+
+    if (!storedTime || newTimeInSeconds < convertToSeconds(storedTime)) {
+        localStorage.setItem('bestTime', timeTaken);
+        bestTime.textContent = timeTaken;
+    } else {
+        bestTime.textContent = storedTime;
+    }
+    playerTime.textContent = timeTaken;
+}
+
+function convertToSeconds(time) {
+    const [hours, minutes, seconds] = time.split(':').map(Number);
+    return hours * 3600 + minutes * 60 + seconds;
 }
 
 function startGame() {
@@ -337,10 +359,19 @@ function startGame() {
     }
 
     start.classList.add("hidden");
+    timer = 0;
     timeTnterval = startTimer();
 
     question = createMinesweeperGrid(mines);
-    console.table(question);
+    // console.table(question);
+
+    hintButton.removeEventListener("click", function () {
+        showHint(question);
+    });
+
+    flagButton.removeEventListener("click", function () {
+        changeMode();
+    });
 
     hintButton.addEventListener("click", function () {
         showHint(question);
