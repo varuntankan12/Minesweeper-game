@@ -50,7 +50,7 @@
     box-shadow: inset 2px 2px rgba(255, 130, 130, 0.915), inset -2px -2px rgba(255, 130, 130, 0.915);
 }
 
-.time{
+.time {
     width: 100px;
 }
 
@@ -68,6 +68,15 @@
 
 .button img {
     width: 38px;
+}
+
+.button svg{
+    width: 38px;
+    height: auto;
+}
+
+.hint-available svg path{
+    stroke: #d2d900;
 }
 
 .cell-container {
@@ -191,7 +200,7 @@
 }
 
 .hint {
-    border: green;
+    border-color: green !important;
 }
 
 @media (max-width:480px) {
