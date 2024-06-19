@@ -6,7 +6,7 @@
     left: 0;
     z-index: 99;
     cursor: default;
-    background-color: #00000038;
+    background-color: #00000084;
 }
 
 .btn-container {
@@ -19,17 +19,6 @@
     align-items: flex-end;
 }
 
-.information span {
-    background-color: #3c9197;
-    padding: 16px;
-    border: 2px solid #3C6E71;
-    border-radius: 10px;
-    font-size: 24px;
-    font-weight: 500;
-    color: white;
-    letter-spacing: 1px;
-}
-
 .information button {
     background-color: #3c9197;
     padding: 6px 16px;
@@ -39,234 +28,192 @@
     border: 2px solid #1a7777;
 }
 
-.total-mine-info {
-    position: absolute;
-    top: 65px;
+.give-info {
+    position: relative;
 }
 
-.total-mine-info::before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    transform: rotate(45deg);
-    background-color: #3c9197;
-    top: -10px;
-    left: 30px;
+.give-info::after,
+.give-info::before {
+    display: none;
 }
 
-.time-info {
-    position: absolute;
-    top: 65px;
-    right: 0;
-    max-width: 250px;
-}
-
-.time-info::before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    transform: rotate(45deg);
-    background-color: #3c9197;
-    top: -10px;
-    right: 50px;
-}
-
-.change-hammer-info {
-    position: absolute;
-    top: 65px;
-    right: 40px;
-    max-width: 280px;
-}
-
-.change-hammer-info::before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    transform: rotate(45deg);
-    background-color: #3c9197;
-    top: -10px;
-    left: 80px;
-}
-
-.hint-info {
-    position: absolute;
-    top: 65px;
-    left: 80px;
-    max-width: 280px;
-}
-
-.hint-info::before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    transform: rotate(45deg);
-    background-color: #3c9197;
-    top: -10px;
-    left: 100px;
-}
-
-.cell-info {
-    position: absolute;
-    top: 250px;
-    left: 100px;
-}
-
-.cell-info::before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    transform: rotate(45deg);
-    background-color: #3c9197;
-    top: -10px;
-    left: 100px;
-}
-
-.how-to-play {
-    position: absolute;
-    top: 270px;
-    left: 100px;
-    max-width: 300px;
-}
-
-.help-container {
-    height: 150px;
-    width: 150px;
-    border: 4px solid rgba(0, 0, 0, 0.621);
-    border-radius: 4px;
-    display: grid;
-    grid-template-columns: 42px 42px 42px;
-    gap: 4px;
-    padding: 4px;
-    position: absolute;
-    top: -160px;
-    left: 40px;
-}
-
-.help-container p {
-    background-color: #ffffff7d;
-    height: 42px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-}
-
-.how-to-play-text {
+.give-info::after {
     background-color: #3c9197;
     padding: 16px;
     border: 2px solid #3C6E71;
     border-radius: 10px;
     font-size: 24px;
+    line-height: 24px;
     font-weight: 500;
     color: white;
     letter-spacing: 1px;
+    position: absolute;
 }
 
-.how-to-play-text::before {
+.mines::after {
+    content: "Total Numbers of Mines present.";
+    top: 50px;
+    left: 0;
+    width: 140px;
+}
+
+.mines::before {
     position: absolute;
     content: "";
     height: 20px;
     width: 20px;
     transform: rotate(45deg);
     background-color: #3c9197;
-    top: -10px;
-    left: 100px;
+    top: 42px;
+    left: 20px;
+}
+
+.setting::after {
+    content: "Click here to change, Game Settings.";
+    top: 56px;
+    left: -60px;
+    width: 180px;
+}
+
+.setting::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    transform: rotate(45deg);
+    background-color: #3c9197;
+    top: 48px;
+    left: 10px;
+}
+
+.help::after {
+    content: "Click here for a Hint (Once in a minute).";
+    top: 56px;
+    left: -60px;
+    width: 180px;
+}
+
+.help::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    transform: rotate(45deg);
+    background-color: #3c9197;
+    top: 48px;
+    left: 10px;
+}
+
+.flag-btn::after {
+    content: "Click here to change mining mode (Mining/Flag).";
+    top: 56px;
+    left: -60px;
+    width: 220px;
+    text-align: left;
+}
+
+.flag-btn::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    transform: rotate(45deg);
+    background-color: #3c9197;
+    top: 48px;
+    left: 10px;
+}
+
+.time::after {
+    content: "Time will continously running, so be quick.";
+    top: 56px;
+    right: -10px;
+    width: 160px;
+    text-align: left;
+}
+
+.time::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    transform: rotate(45deg);
+    background-color: #3c9197;
+    top: 48px;
+    left: 30px;
+}
+
+.show-info::after,
+.show-info::before {
+    display: block !important;
+}
+
+.how-to-play::after {
+    font-family: "Jolly Lodger", system-ui;
+    content: "The numbers shows that how many mines are connected to that cell around it.";
+    letter-spacing: auto;
+    top: 56px;
+    left: -100px;
+    width: 220px;
+}
+
+.how-to-play::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    transform: rotate(45deg);
+    background-color: #3c9197;
+    top: 48px;
+    left: 10px;
 }
 
 @media (max-width:540px) {
-
-    .btn-container {
-        padding: 14px 18px;
-    }
-
-    .information span {
+    .give-info::after {
         padding: 8px;
+        border: 1px solid #3C6E71;
+        font-size: 18px;
     }
 
-    .information button {
-        padding: 6px 16px;
+    .mines::after {
+        left: -10px;
+        width: 110px;
     }
 
-    .change-hammer-info {
-        right: 10px;
-        max-width: 280px;
+    .setting::after {
+        top: 46px;
+        width: 130px;
     }
 
-    .change-hammer-info::before {
-        left: 135px;
+    .setting::before {
+        top: 38px;
+        left: 5px;
     }
 
-    .hint-info {
-        position: absolute;
-        top: 65px;
-        left: 10px;
-        max-width: 180px;
+    .help::after {
+        top: 46px;
+        left: -50px;
+        width: 130px;
     }
 
-    .hint-info::before {
-        left: 85px;
+    .help::before {
+        top: 38px;
+        left: 5px;
     }
 
-    .cell-info {
-        position: absolute;
-        top: 180px;
-        left:27px;
+    .flag-btn::after {
+        top: 46px;
+        left: -70px;
+        width: 170px;
+        text-align: left;
     }
 
-    .how-to-play {
-        position: absolute;
-        top: 170px;
-        left: 30px;
-        max-width: 300px;
+    .flag-btn::before {
+        top: 38px;
+        left: 5px;
     }
 
-    .help-container {
-        height: 95px;
-        width: 95px;
-        border: 2px solid rgba(0, 0, 0, 0.621);
-        border-radius: 4px;
-        display: grid;
-        grid-template-columns: 25px 25px 25px;
-        gap: 4px;
-        padding: 2px;
-        position: absolute;
-        top: -110px;
-        left: 60px;
-    }
-
-    .help-container p {
-        background-color: #ffffffbc;
-        height: 25px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
-    }
-
-    .how-to-play-text {
-        background-color: #3c9197;
-        padding: 16px;
-        border: 2px solid #3C6E71;
-        border-radius: 10px;
-        font-size: 24px;
-        font-weight: 500;
-        color: white;
-        letter-spacing: 1px;
-    }
-
-    .how-to-play-text::before {
-        position: absolute;
-        content: "";
-        height: 20px;
-        width: 20px;
-        transform: rotate(45deg);
-        background-color: #3c9197;
-        top: -10px;
-        left: 100px;
+    .time::after {
+        width: 130px;
+        text-align: left;
     }
 }

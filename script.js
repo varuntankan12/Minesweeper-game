@@ -14,7 +14,10 @@ const bestTime = document.getElementById("best_time");
 const start = document.getElementById("start");
 const help = document.getElementById("info_container");
 const gameArea = document.getElementById("game_area");
+const information = document.getElementById("info_container");
+const settingButton = document.getElementById("setting_btn");
 
+let eventListnersALreadyAdded = false;
 let mines = 15;
 let question = [];
 let flagGrid = Array.from({ length: 10 }, () => Array(10).fill(0));
@@ -24,12 +27,15 @@ let timeTaken = "";
 let timeTnterval;
 let timer = 0, h, m, s;
 
+let currIndex = 0;
+let elementArray;
 
 document.addEventListener("DOMContentLoaded", function () {
     cellContainer.innerHTML = "";
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
             const span = document.createElement("span");
+            if (i == 1 && j == 4) span.classList.add("give-info", "info-cell");
             span.classList.add("cell");
             span.id = `${i}_${j}`;
             span.addEventListener("click", function () {
@@ -44,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
         start.classList.remove("hidden");
     } else {
         help.classList.remove("hidden");
+        elementArray = Array.from(document.querySelectorAll(".give-info"));
+        showItem(currIndex);
     }
 
     replay.addEventListener("click", function () {
@@ -54,7 +62,94 @@ document.addEventListener("DOMContentLoaded", function () {
         flagButton.classList.remove("hidden");
         startGame();
     });
+
+    settingButton.addEventListener("click",function (){
+        if (confirm("All your current game progress will be lost. and a new game with new settings will start\nDo you really want to continue?")){
+            
+        }
+    });
 });
+
+document.getElementById("prev").addEventListener("click", function () {
+    if (currIndex > 0) {
+        hideItem(currIndex);
+        currIndex -= 1;
+        showItem(currIndex);
+        document.getElementById("next").textContent = "Next";
+    }
+});
+
+document.getElementById("next").addEventListener("click", function () {
+    if (currIndex < elementArray.length - 1) {
+        hideItem(currIndex);
+        currIndex += 1;
+        showItem(currIndex);
+    } else {
+        information.classList.add("hidden");
+        localStorage.setItem("help", true);
+        startGame();
+    }
+});
+
+function hideItem(index) {
+    elementArray[index].classList.remove("show-info");
+    elementArray[index].style.zIndex = "0";
+    if (currIndex == elementArray.length - 1) {
+        elementArray[currIndex].textContent = "";
+        elementArray[currIndex].classList.remove("opened");
+        const [row, col] = elementArray[currIndex].id.split('_').map(Number);
+        const directions = [
+            [-1, -1], [-1, 0], [-1, 1],
+            [0, -1], [0, 1],
+            [1, -1], [1, 0], [1, 1]
+        ];
+        directions.forEach(([dx, dy]) => {
+            const newRow = row + dx;
+            const newCol = col + dy;
+            const newCell = document.getElementById(`${newRow}_${newCol}`);
+            newCell.style.zIndex = "0";
+            newCell.classList.remove("opened");
+            if ((dx == -1 && dy == -1) || (dx == 0 && dy == 1)) {
+                newCell.innerHTML = ``;
+            }
+            if (dx == 1 && dy == 0) {
+                newCell.classList.remove("how-to-play", "show-info", "give-info");
+            }
+        });
+        console.log(elementArray[currIndex]);
+        document.getElementById("next").textContent = "next";
+    }
+}
+
+function showItem(index) {
+    elementArray[index].classList.add("show-info");
+    elementArray[index].style.zIndex = "999";
+    if (currIndex == elementArray.length - 1) {
+        elementArray[currIndex].textContent = "2";
+        elementArray[currIndex].classList.add("opened");
+        const [row, col] = elementArray[currIndex].id.split('_').map(Number);
+        const directions = [
+            [-1, -1], [-1, 0], [-1, 1],
+            [0, -1], [0, 1],
+            [1, -1], [1, 0], [1, 1]
+        ];
+        directions.forEach(([dx, dy]) => {
+            const newRow = row + dx;
+            const newCol = col + dy;
+            const newCell = document.getElementById(`${newRow}_${newCol}`);
+            newCell.style.zIndex = "999";
+            newCell.classList.add("opened");
+            if ((dx == -1 && dy == -1) || (dx == 0 && dy == 1)) {
+                newCell.innerHTML = `<img src="assets/mine.svg" alt=".">`;
+            }
+            if (dx == 1 && dy == 0) {
+                newCell.classList.add("how-to-play", "show-info", "give-info");
+            }
+        });
+        console.log(elementArray[currIndex]);
+        document.getElementById("next").textContent = "Close";
+    }
+}
 
 start.addEventListener("click", function () {
     startGame();
@@ -160,7 +255,6 @@ function checkCell(cellId, grid) {
     const [row, col] = cellId.split('_').map(Number);
     const cell = document.getElementById(cellId);
 
-    cell.classList.contains("opened");
     if (cell.classList.contains("opened")) {
         return;
     } else if (mode == "mine") {
@@ -188,13 +282,15 @@ function checkCell(cellId, grid) {
     } else if (mode == "flag") {
         if (flagGrid[row][col] == 0 && mines > 0) {
             flagGrid[row][col] = 1;
-            cell.innerHTML = `<img src="assets/red_flag.svg" alt=".">`;
+            cell.innerHTML = `<img src="assets/flag.png" alt=".">`;
+            cell.classList.add("flag");
             mines -= 1;
             totalMines.innerHTML = mines > 99 ? mines : "0" + mines;
         }
         else {
             flagGrid[row][col] = 0;
             cell.innerHTML = "";
+            cell.classList.remove("flag");
             mines += 1;
             totalMines.innerHTML = mines > 99 ? mines : "0" + mines;
         }
@@ -365,19 +461,14 @@ function startGame() {
     question = createMinesweeperGrid(mines);
     // console.table(question);
 
-    hintButton.removeEventListener("click", function () {
-        showHint(question);
-    });
+    if (!eventListnersALreadyAdded) {
+        eventListnersALreadyAdded = true;
+        hintButton.addEventListener("click", function () {
+            showHint(question);
+        });
 
-    flagButton.removeEventListener("click", function () {
-        changeMode();
-    });
-
-    hintButton.addEventListener("click", function () {
-        showHint(question);
-    });
-
-    flagButton.addEventListener("click", function () {
-        changeMode();
-    });
+        flagButton.addEventListener("click", function () {
+            changeMode();
+        });
+    }
 }

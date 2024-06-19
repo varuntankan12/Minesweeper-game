@@ -7,12 +7,16 @@
     font-family: "Jolly Lodger", system-ui;
 }
 
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
 .flex-center-column {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 24px;
 }
 
 .main-container {
@@ -24,34 +28,37 @@
 .game-area {
     width: 480px;
     background-color: rgb(169, 169, 195);
-    border: 4px solid gray;
+    border: 0.6rem solid gray;
     cursor: url(assets/hammer.png), default;
     position: relative;
 }
 
 .header {
+    width: 100%;
+    height: 62px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 16px;
-    border-bottom: 4px solid grey;
+    padding: .6rem 1.6rem;
+    border-bottom: .4rem solid grey;
 }
 
 .mines,
 .time {
     background-color: rgba(255, 24, 24, 0.81);
     color: white;
-    border: 2px solid rgb(112, 0, 0);
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 24px;
+    border: .2rem solid rgb(112, 0, 0);
+    border-radius: .4rem;
+    padding: .4rem .8rem;
+    font-size: 2.4rem;
     font-weight: 500;
-    letter-spacing: 2px;
-    box-shadow: inset 2px 2px rgba(255, 130, 130, 0.915), inset -2px -2px rgba(255, 130, 130, 0.915);
+    letter-spacing: .2rem;
+    box-shadow: inset .2rem .2rem rgba(255, 130, 130, 0.915), inset -.2rem -.2rem rgba(255, 130, 130, 0.915);
 }
 
 .time {
-    width: 100px;
+    width: 10rem;
+    text-align: center;
 }
 
 .button {
@@ -67,54 +74,55 @@
 }
 
 .button img {
-    width: 38px;
+    width: 3.8rem;
+    aspect-ratio: 1;
 }
 
-.button svg{
-    width: 38px;
-    height: auto;
+.button svg {
+    width: 3.8rem;
+    aspect-ratio: 1;
+    height: fit-content;
 }
 
-.hint-available svg path{
-    stroke: #d2d900;
+.hint-available svg path {
+    stroke: gold;
 }
 
 .cell-container {
     width: 100%;
-    height: 480px;
+    min-height: 450px;
     display: grid;
     place-items: center;
-    grid-template-columns: 42px 42px 42px 42px 42px 42px 42px 42px 42px 42px;
-    gap: 4px;
-    padding: 8px;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    padding: .8rem;
 }
 
 .cell-container .cell {
-    height: 42px;
-    width: 42px;
+    width: 100%;
+    aspect-ratio: 1;
+    font-size: 2.6rem;
+    line-height: 0px;
+    letter-spacing: 0px;
     background-color: #f4f4f4;
-    border-top: 6px solid rgba(128, 128, 128, 0.284);
-    border-left: 6px solid rgba(128, 128, 128, 0.518);
-    border-bottom: 6px solid grey;
-    border-right: 6px solid grey;
+    border-top: .2em solid rgba(128, 128, 128, 0.284);
+    border-left: .2em solid rgba(128, 128, 128, 0.518);
+    border-bottom: .2em solid grey;
+    border-right: .2em solid grey;
 }
 
-.cell img {
-    width: 24px !important;
+.cell img,
+.opened img {
+    width: 100% !important;
+    padding: 4px;
 }
 
 .opened {
     font-family: 'Times New Roman', Times, serif;
     font-weight: 700;
-    border: 1px solid grey !important;
+    border: .1rem solid grey !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-}
-
-.opened img {
-    width: 22px !important;
 }
 
 .hidden {
@@ -124,18 +132,17 @@
 .game-over {
     position: absolute;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 62px);
     bottom: 0;
     left: 0;
     z-index: 999;
     display: grid;
     place-items: center;
-    gap: 12px;
     background-color: #00000043;
 }
 
 .game-over p {
-    font-size: 36px;
+    font-size: 3.6rem;
     font-weight: 600;
     color: #0a554d;
 }
@@ -143,7 +150,7 @@
 .game-win {
     position: absolute;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 62px);
     bottom: 0;
     left: 0;
     z-index: 999;
@@ -155,21 +162,22 @@
 }
 
 .game-win p {
-    font-size: 24px;
+    font-size: 2.4rem;
     font-weight: 500;
     color: white;
-    letter-spacing: 2px;
+    letter-spacing: .2rem;
 }
 
 .game-win p:first-of-type {
-    font-size: 46px;
+    font-size: 4.6rem;
+    letter-spacing: .4rem;
     font-weight: 600;
     color: #0a554d;
-    margin-bottom: 36px;
+    margin-bottom: 3.6rem;
 }
 
 .replay-button {
-    font-size: 24px;
+    font-size: 2.4rem;
     color: rgb(0, 84, 88);
     text-decoration: underline;
     box-shadow: inset 2px 2px 8px rgba(0, 195, 205, 0.10), inset -2px -2px 8px rgba(0, 195, 205, 0.10);
@@ -180,7 +188,7 @@
 .start {
     position: absolute;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 62px);
     bottom: 0;
     left: 0;
     z-index: 999;
@@ -190,14 +198,54 @@
 }
 
 .start button {
-    font-size: 36px;
+    font-size: 3.6rem;
     color: white;
     background-color: #3c9197;
-    padding: 0 24px;
-    border: 2px solid #11494d;
-    border-radius: 8px;
+    padding: 0 2.4rem;
+    border: .2rem solid #11494d;
+    border-radius: .8rem;
     cursor: pointer;
 }
+
+.setting-container {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 62px);
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 16px;
+    background-color: #00000068;
+
+}
+
+.setting-container .slider {
+    width: 100%;
+    padding: 34px;
+    font-size: 24px;
+    color: #0a554d;
+}
+
+input[type="range"]{
+
+}
+
+.setting-container .cell {
+    width: 40px;
+    aspect-ratio: 1;
+    font-size: 2.6rem;
+    line-height: 0px;
+    letter-spacing: 0px;
+    background-color: #f4f4f4;
+    border-top: .2em solid rgba(128, 128, 128, 0.284);
+    border-left: .2em solid rgba(128, 128, 128, 0.518);
+    border-bottom: .2em solid grey;
+    border-right: .2em solid grey;
+}
+
 
 .hint {
     border-color: green !important;
@@ -205,46 +253,46 @@
 
 @media (max-width:480px) {
     .main-container {
+        height: 100vh;
         min-height: 100svh;
         padding: 1vw;
     }
 
     .game-area {
-        width: 306px;
+        width: 100%;
+    }
+
+    .header {
+        padding: .4rem .8rem;
+    }
+
+    .button {
+        gap: .6rem;
     }
 
     .button img {
-        width: 36px;
+        width: 2.8rem;
+    }
+
+    .button svg {
+        width: 2.8rem;
     }
 
     .cell-container {
         width: 100%;
-        height: 100%;
+        min-height: 280px;
         display: grid;
         place-items: center;
-        grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
-        gap: 2px;
-        padding: 4px;
+        grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+        padding: .2rem;
     }
 
     .cell-container .cell {
-        height: 25px;
-        width: 25px;
-        background-color: #f4f4f4;
-        border-top: 3px solid rgba(128, 128, 128, 0.284);
-        border-left: 3px solid rgba(128, 128, 128, 0.518);
-        border-bottom: 3px solid grey;
-        border-right: 3px solid grey;
+        font-size: 2.4rem;
     }
 
     .opened {
-        font-family: 'Times New Roman', Times, serif;
-        font-weight: 700;
-        border: 1px solid grey !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
+        font-size: 2.4rem !important;
         cursor: default !important;
     }
 
