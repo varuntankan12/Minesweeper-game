@@ -229,8 +229,8 @@ html {
     color: #0a554d;
 }
 
-input[type="range"]{
-
+input[type="range"] {
+    visibility: none;
 }
 
 .setting-container .cell {
