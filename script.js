@@ -26,7 +26,7 @@ let availableHint = true;
 let timeTaken = "";
 let timeTnterval;
 let timer = 0, h, m, s;
-
+let started = false;;
 let currIndex = 0;
 let elementArray;
 
@@ -63,9 +63,9 @@ document.addEventListener("DOMContentLoaded", function () {
         startGame();
     });
 
-    settingButton.addEventListener("click",function (){
-        if (confirm("All your current game progress will be lost. and a new game with new settings will start\nDo you really want to continue?")){
-            
+    settingButton.addEventListener("click", function () {
+        if (confirm("All your current game progress will be lost. and a new game with new settings will start\nDo you really want to continue?")) {
+
         }
     });
 });
@@ -269,6 +269,7 @@ function checkCell(cellId, grid) {
                 flagButton.classList.add("hidden");
                 clearInterval(timeTnterval);
                 revealAllMines();
+                started = false;
             } else {
                 cell.classList.add("opened");
                 cell.textContent = grid[row][col] > 0 ? grid[row][col] : '';
@@ -416,6 +417,7 @@ function checkGameCompleted(grid = question) {
         hintButton.classList.add("hidden");
         flagButton.classList.add("hidden");
         storeGameTime();
+        started = false;
     }
 }
 
@@ -438,6 +440,7 @@ function convertToSeconds(time) {
 }
 
 function startGame() {
+    started = true;
     mines = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
     totalMines.innerHTML = mines > 99 ? mines : "0" + mines;
 
@@ -472,3 +475,16 @@ function startGame() {
         });
     }
 }
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Control' && mode == "mine" && started == true) {
+        changeMode();
+    }
+});
+
+// Event listener for keyup event
+document.addEventListener('keyup', function (event) {
+    if (event.key === 'Control' && mode == "flag" && started == true) {
+        changeMode();
+    }
+});

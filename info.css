@@ -105,7 +105,7 @@
 }
 
 .flag-btn::after {
-    content: "Click here to change mining mode (Mining/Flag).";
+    content: "Click here or hold ctrl key to change mining mode (Mining/Flag).";
     top: 56px;
     left: -60px;
     width: 220px;
